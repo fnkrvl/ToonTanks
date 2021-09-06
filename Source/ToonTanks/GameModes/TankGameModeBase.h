@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "ToonTanks/PlayerControllers/PlayerControllerBase.h"
 #include "TankGameModeBase.generated.h"
 
 class APawnTank;
 class APawnTurret;
+class APlayerControllerBase;
 
 UCLASS()
 class TOONTANKS_API ATankGameModeBase : public AGameModeBase
@@ -34,6 +36,8 @@ private:
 	UPROPERTY()
 	APawnTank* PlayerTank = nullptr;
 	int32 TargetTurrets = 0;
+	UPROPERTY()
+	APlayerControllerBase* PlayerControllerRef = nullptr;
 
 	int32 GetTargetTurretCount() const;
 	void HandleGameStart();
