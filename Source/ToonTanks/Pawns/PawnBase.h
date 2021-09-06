@@ -8,38 +8,41 @@
 #include "PawnBase.generated.h"
 
 class UCapsuleComponent;
+class AProjectileBase;
 
 UCLASS()
 class TOONTANKS_API APawnBase : public APawn
 {
 	GENERATED_BODY()
-
-private:
-	UPROPERTY()
+	
+protected:
+	// COMPONENTS
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category= "Components", meta= (AllowPrivateAcess = "true"))
 	UCapsuleComponent* CapsuleComp = nullptr;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category= "Components", meta= (AllowPrivateAcess = "true"))
 	UStaticMeshComponent* BaseMesh = nullptr;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category= "Components", meta= (AllowPrivateAcess = "true"))
 	UStaticMeshComponent* TurretMesh = nullptr;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category= "Components", meta= (AllowPrivateAcess = "true"))
 	USceneComponent* ProjectileSpawnPoint = nullptr;
 
+	// VARIABLES
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= "Projectile Type", meta= (AllowPrivateAcess = "true"))
+	TAssetSubclassOf<AProjectileBase> ProjectileClass;
+
+	void RotateTurret(FVector LookAtTarget);
+
+	void Fire();
+	 
 public:
 	// Sets default values for this pawn's properties
 	APawnBase();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	virtual void HandleDestruction();
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	
+	
 };
