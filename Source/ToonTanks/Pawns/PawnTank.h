@@ -35,18 +35,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Movement", meta= (AllowPrivateAcess = "true"))
 	float MoveSpeed = 100.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Movement", meta= (AllowPrivateAcess = "true"))
-	float RotateSpeed = 100.f;
-
-	UPROPERTY()
-	APlayerController* PlayerControllerRef = nullptr;
-
-	void CalculateMoveInput(float Value);
-	void CalculateRotationInput(float Value);
-
-	void Move();
-	void Rotate();
-
-	
+	float RotateSpeed = 100.f;	
 		
 public:
 	// Called every frame
@@ -56,4 +45,19 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void HandleDestruction() override;
+
+	bool GetIsPlayerAlive() const;
+	
+private:
+
+	UPROPERTY()
+	APlayerController* PlayerControllerRef = nullptr;
+	bool bIsPlayerAlive = true;
+
+	void CalculateMoveInput(float Value);
+	void CalculateRotationInput(float Value);
+
+	void Move();
+	void Rotate();
+	
 };
